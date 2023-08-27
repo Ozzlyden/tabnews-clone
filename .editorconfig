@@ -1,0 +1,19 @@
+# Define as configurações gerais
+root = true
+
+# Configurações para todos os arquivos
+[*]
+indent_style = space
+indent_size = 2
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# Configurações específicas para arquivos JavaScript
+[*.js]
+indent_size = 2
+
+# Configurações específicas para arquivos Python
+[*.py]
+indent_size = 2
