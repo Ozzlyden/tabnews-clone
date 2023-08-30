@@ -1,6 +1,3 @@
 .next
-<<<<<<< HEAD
-node_modules
-=======
->>>>>>> de595b59bbc2980cbe0003ebbda457f9a7af7ebd
+.node_modules
 .vercel
