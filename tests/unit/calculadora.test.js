@@ -1,4 +1,4 @@
-const calculadora = require("../models/calculadora.js");  // importando o model
+const calculadora = require("../../models/calculadora.js");  // importando o model
 
 test("Test de soma", () =>{
   const resultado = calculadora.somar(100, 5);
