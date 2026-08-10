@@ -1,10 +1,10 @@
 import database from "infra/database.js";
+import orchestrator from "tests/orchestrator.js";
 
-beforeAll(() => { cleanDatabase(); });
-
-async function cleanDatabase() {
+beforeAll(async () => {
+  await orchestrator.waitForAllServices();
   await database.query("DROP SCHEMA public cascade; create schema public");
-}
+});
 
 //TEST MIGRATIONS
 test("GET to /api/v1/migrations should return 200", async () => {
@@ -15,8 +15,6 @@ test("GET to /api/v1/migrations should return 200", async () => {
 
   // TESTES ESPERADOS
   expect(response.status).toBe(200);
-
-
 
   expect(Array.isArray(responseBody)).toBe(true);
   expect(responseBody.length).toBeGreaterThan(0);
