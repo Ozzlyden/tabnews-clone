@@ -8,7 +8,6 @@ beforeAll(async () => {
 
 //TEST MIGRATIONS
 test("POST to /api/v1/migrations should return 200", async () => {
-
   // VARIVAEIS DE TESTE
   const response1 = await fetch("http://localhost:3000/api/v1/migrations", {
     method: "POST",
@@ -19,7 +18,6 @@ test("POST to /api/v1/migrations should return 200", async () => {
   expect(response1.status).toBe(201);
   expect(Array.isArray(response1Body)).toBe(true);
   expect(response1Body.length).toBeGreaterThan(0);
-
 
   // VARIVAEIS DE TESTE
   const response2 = await fetch("http://localhost:3000/api/v1/migrations", {

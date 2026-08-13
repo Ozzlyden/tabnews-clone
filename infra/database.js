@@ -1,7 +1,6 @@
-import { Client } from 'pg';
-import { port } from 'pg/lib/defaults';
+import { Client } from "pg";
+import { port } from "pg/lib/defaults";
 async function query(queryObject) {
-
   // CONEXAO COM BD
   let client;
   try {
@@ -32,7 +31,7 @@ async function getNewClient() {
 
 export default {
   query,
-  getNewClient
+  getNewClient,
 };
 
 function getSSLValues() {
