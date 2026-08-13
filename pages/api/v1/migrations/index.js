@@ -1,4 +1,4 @@
-import migrationRunner from 'node-pg-migrate';
+import migrationRunner from "node-pg-migrate";
 import { join } from "node:path";
 import database from "infra/database.js";
 
@@ -21,12 +21,11 @@ export default async function migrations(request, response) {
       direction: "up",
       verbose: true,
       migrationsTable: "pgmigrations",
-    }
+    };
 
     if (request.method === "GET") {
       const pendingMigrations = await migrationRunner(defaultMigrationOptions);
       return response.status(200).json(pendingMigrations);
-
     }
 
     if (request.method === "POST") {
@@ -40,14 +39,11 @@ export default async function migrations(request, response) {
       }
 
       return response.status(200).json(migratedMigrations);
-
     }
-
   } catch (error) {
-    console.log(error)
+    console.log(error);
     throw error;
   } finally {
     await dbClient.end();
   }
-
 }
