@@ -5,16 +5,18 @@ beforeAll(async () => {
   await orchestrator.clearDatabase();
 });
 
-
 describe("POST /api/v1/migrations", () => {
   describe("Anonymouse user", () => {
     describe("Running pending migrations", () => {
       //TEST MIGRATIONS
       test("For the first time", async () => {
         // VARIVAEIS DE TESTE
-        const response1 = await fetch("http://localhost:3000/api/v1/migrations", {
-          method: "POST",
-        });
+        const response1 = await fetch(
+          "http://localhost:3000/api/v1/migrations",
+          {
+            method: "POST",
+          },
+        );
         const response1Body = await response1.json();
 
         // TESTES ESPERADOS
@@ -24,9 +26,12 @@ describe("POST /api/v1/migrations", () => {
       });
       test("For the second time", async () => {
         // VARIVAEIS DE TESTE
-        const response2 = await fetch("http://localhost:3000/api/v1/migrations", {
-          method: "POST",
-        });
+        const response2 = await fetch(
+          "http://localhost:3000/api/v1/migrations",
+          {
+            method: "POST",
+          },
+        );
         const response2Body = await response2.json();
 
         // TESTES ESPERADOS
