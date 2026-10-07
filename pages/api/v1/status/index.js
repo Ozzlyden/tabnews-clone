@@ -3,7 +3,6 @@ import { InternalServerError } from "infra/errors.js";
 
 async function status(request, response) {
   try {
-
     // VARIAVEIS DE CONSULTA DO BD
     const updatedAt = new Date().toISOString(); // Pega da data atual no formato ISO 8601
 
@@ -42,10 +41,10 @@ async function status(request, response) {
     const publicErrorObject = new InternalServerError({
       cause: error,
     });
-    console.log('\n Erro dentro do catch do controller:')
+    console.log("\n Erro dentro do catch do controller:");
     console.log(publicErrorObject);
 
-    response.status(500).json(publicErrorObject)
+    response.status(500).json(publicErrorObject);
   }
 }
 
