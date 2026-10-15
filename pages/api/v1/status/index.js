@@ -1,51 +1,41 @@
+import { createRouter } from "next-connect";
 import database from "infra/database.js";
-import { InternalServerError } from "infra/errors.js";
+import controller from "infra/controller.js";
 
-async function status(request, response) {
-  try {
-    // VARIAVEIS DE CONSULTA DO BD
-    const updatedAt = new Date().toISOString(); // Pega da data atual no formato ISO 8601
+const router = createRouter();
 
-    const databaseVersionResult = await database.query("SHOW server_version;"); // var de consulta ao BD do Postgres
-    const databaseVersionValue = databaseVersionResult.rows[0].server_version; // Resposta que a gente queria da consulta
+router.get(getHandler);
 
-    const databaseMaxConnectionResult = await database.query(
-      "SHOW max_connections;",
-    ); // Mostra no número maximo de conexões do BD
-    const databaseMaxConnectionValue =
-      databaseMaxConnectionResult.rows[0].max_connections; // Por padrão geralmente são 100
+export default router.handler(controller.errorHandlers);
 
-    // EX DE COMO EVITAR ATAQUE SQL INJECTION
-    const databaseName = process.env.POSTGRES_DB;
-    const databaseOpenedConnectionResult = await database.query({
-      // Para evitar, basta separar o texto dos valores que vc que injetar na Query
-      text: "SELECT count(*)::int FROM pg_stat_activity WHERE datname = $1;",
-      values: [databaseName],
-    });
+async function getHandler(request, response) {
+  const updatedAt = new Date().toISOString();
 
-    const databaseOpenedConnectionValue =
-      databaseOpenedConnectionResult.rows[0].count;
+  const databaseVersionResult = await database.query("SHOW server_version;");
+  const databaseVersionValue = databaseVersionResult.rows[0].server_version;
 
-    // Respostas da requisições HTTP com status OK (200)
-    response.status(200).json({
-      updated_at: updatedAt,
-      dependencies: {
-        database: {
-          version: databaseVersionValue,
-          max_connections: parseInt(databaseMaxConnectionValue),
-          opened_connections: databaseOpenedConnectionValue,
-        },
+  const databaseMaxConnectionResult = await database.query(
+    "SHOW max_connections;",
+  );
+  const databaseMaxConnectionValue =
+    databaseMaxConnectionResult.rows[0].max_connections;
+  const databaseName = process.env.POSTGRES_DB;
+  const databaseOpenedConnectionResult = await database.query({
+    text: "SELECT count(*)::int FROM pg_stat_activity WHERE datname = $1;",
+    values: [databaseName],
+  });
+
+  const databaseOpenedConnectionValue =
+    databaseOpenedConnectionResult.rows[0].count;
+
+  response.status(200).json({
+    updated_at: updatedAt,
+    dependencies: {
+      database: {
+        version: databaseVersionValue,
+        max_connections: parseInt(databaseMaxConnectionValue),
+        opened_connections: databaseOpenedConnectionValue,
       },
-    }); // Tbm envia resposta para API usando charset=utf-8
-  } catch (error) {
-    const publicErrorObject = new InternalServerError({
-      cause: error,
-    });
-    console.log("\n Erro dentro do catch do controller:");
-    console.log(publicErrorObject);
-
-    response.status(500).json(publicErrorObject);
-  }
+    },
+  });
 }
-
-export default status;
