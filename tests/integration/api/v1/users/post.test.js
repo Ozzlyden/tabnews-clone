@@ -9,12 +9,11 @@ beforeAll(async () => {
 
 describe("POST /api/v1/users", () => {
   describe("Anonymouse user", () => {
-
     test("With unique and valid data", async () => {
       const response = await fetch("http://localhost:3000/api/v1/users", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           username: "vitinho",
@@ -24,14 +23,13 @@ describe("POST /api/v1/users", () => {
       });
 
       expect(response.status).toBe(201);
-
     });
 
     test("With duplicated 'email'", async () => {
       const response1 = await fetch("http://localhost:3000/api/v1/users", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           username: "vitinho1",
@@ -45,7 +43,7 @@ describe("POST /api/v1/users", () => {
       const response2 = await fetch("http://localhost:3000/api/v1/users", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           username: "vitinho2",
@@ -62,9 +60,8 @@ describe("POST /api/v1/users", () => {
         name: "ValidationError",
         message: "O email informado já está sendo utilizado.",
         action: "Utilize outro email para realizar o cadastro.",
-        statusCode: 400
-      })
-
+        statusCode: 400,
+      });
     });
   });
 
@@ -72,7 +69,7 @@ describe("POST /api/v1/users", () => {
     const response3 = await fetch("http://localhost:3000/api/v1/users", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         username: "usernametest",
@@ -86,7 +83,7 @@ describe("POST /api/v1/users", () => {
     const response4 = await fetch("http://localhost:3000/api/v1/users", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         username: "Usernametest",
@@ -103,8 +100,7 @@ describe("POST /api/v1/users", () => {
       name: "ValidationError",
       message: "O username informado já está sendo utilizado.",
       action: "Utilize outro username para realizar o cadastro.",
-      statusCode: 400
-    })
-
+      statusCode: 400,
+    });
   });
 });
