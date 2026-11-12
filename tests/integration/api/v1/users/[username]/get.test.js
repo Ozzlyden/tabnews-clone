@@ -8,7 +8,7 @@ beforeAll(async () => {
 });
 
 describe("GET /api/v1/users/[username]", () => {
-  describe("Anonymouse user", () => {
+  describe("Anonymous user", () => {
     test("With exact case match", async () => {
       const response1 = await fetch("http://localhost:3000/api/v1/users", {
         method: "POST",
@@ -18,7 +18,7 @@ describe("GET /api/v1/users/[username]", () => {
         body: JSON.stringify({
           username: "MesmoCase",
           email: "mesmo.case@test.com.br",
-          password: "123456",
+          password: "senha123",
         }),
       });
 
@@ -36,7 +36,7 @@ describe("GET /api/v1/users/[username]", () => {
         id: response2Body.id,
         username: "MesmoCase",
         email: "mesmo.case@test.com.br",
-        password: "123456",
+        password: response2Body.password,
         created_at: response2Body.created_at,
         updated_at: response2Body.updated_at,
       });
@@ -55,7 +55,7 @@ describe("GET /api/v1/users/[username]", () => {
         body: JSON.stringify({
           username: "CaseDiferente",
           email: "case.diferente@test.com.br",
-          password: "123456",
+          password: "senha123",
         }),
       });
 
@@ -73,7 +73,7 @@ describe("GET /api/v1/users/[username]", () => {
         id: response2Body.id,
         username: "CaseDiferente",
         email: "case.diferente@test.com.br",
-        password: "123456",
+        password: response2Body.password,
         created_at: response2Body.created_at,
         updated_at: response2Body.updated_at,
       });
