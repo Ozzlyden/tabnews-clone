@@ -80,7 +80,7 @@ async function update(username, userInputValues) {
 
   const userWithNewValues = { ...currentUser, ...userInputValues };
 
-  const updatedUser = await runUpdateQuery(userWithNewValues)
+  const updatedUser = await runUpdateQuery(userWithNewValues);
   return updatedUser;
 
   async function runUpdateQuery(userWithNewValues) {
@@ -103,8 +103,8 @@ async function update(username, userInputValues) {
         userWithNewValues.username,
         userWithNewValues.email,
         userWithNewValues.password,
-      ]
-    })
+      ],
+    });
 
     return results.rows[0];
   }
@@ -151,7 +151,6 @@ async function validateUniqueEmail(email) {
     });
   }
 }
-
 
 async function hashPasswordInObject(userInputValues) {
   //Transforma texto puro em hash
