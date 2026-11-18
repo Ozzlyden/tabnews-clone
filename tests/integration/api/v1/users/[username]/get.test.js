@@ -14,7 +14,7 @@ describe("GET /api/v1/users/[username]", () => {
         username: "MesmoCase",
         email: "mesmo.case@test.com.br",
         password: "senha123",
-      })
+      });
 
       const response2 = await fetch(
         "http://localhost:3000/api/v1/users/MesmoCase",
@@ -43,8 +43,7 @@ describe("GET /api/v1/users/[username]", () => {
         username: "CaseDiferente",
         email: "case.diferente@test.com.br",
         password: "senha123",
-      })
-
+      });
 
       const response2 = await fetch(
         "http://localhost:3000/api/v1/users/casediferente",
